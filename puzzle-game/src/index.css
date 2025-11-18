@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom snap animation for puzzle pieces */
+@keyframes snap {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  50% { box-shadow: 0 0 20px 10px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.snap-animation {
+  animation: snap 0.5s ease-out;
+}
+
+/* Smooth transitions for dragging */
+.puzzle-piece {
+  transition: transform 0.2s ease-out;
+  cursor: move;
+}
+
+.puzzle-piece:active {
+  cursor: grabbing;
+}
+
+/* Prevent text selection during drag */
+.puzzle-canvas {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Ensure body takes full height */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
