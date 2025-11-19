@@ -128,6 +128,8 @@ export class PuzzleGenerator {
       shape
     );
 
+    // FIX: Store the actual canvas dimensions (including padding)
+    // instead of just pieceWidth and pieceHeight
     return {
       id: `piece-${row}-${col}`,
       row,
@@ -136,8 +138,8 @@ export class PuzzleGenerator {
       currentPosition: { x: 0, y: 0 }, // Will be set by shuffle
       shape,
       imageData: pieceCanvas.toDataURL(),
-      width: pieceWidth,
-      height: pieceHeight,
+      width: pieceCanvas.width,   // Fixed: Use actual canvas width with padding
+      height: pieceCanvas.height, // Fixed: Use actual canvas height with padding
       isPlaced: false,
     };
   }
@@ -417,6 +419,8 @@ export class PuzzleGenerator {
     const shuffled = shuffleArray(pieces);
 
     // Position pieces randomly
+    // Now this calculation is correct because piece.width and piece.height
+    // include the padding, preventing pieces from being placed partially off-canvas
     return shuffled.map((piece) => ({
       ...piece,
       currentPosition: {

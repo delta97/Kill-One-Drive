@@ -53,6 +53,12 @@ export const usePuzzleStore = create<PuzzleState>()(
 
         // Actions
         setImage: (file) => {
+          // FIX: Revoke the old URL before creating a new one to prevent memory leak
+          const currentUrl = get().imageUrl;
+          if (currentUrl) {
+            URL.revokeObjectURL(currentUrl);
+          }
+
           const url = URL.createObjectURL(file);
           set({ originalImage: file, imageUrl: url });
         },
